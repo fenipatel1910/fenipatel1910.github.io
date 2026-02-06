@@ -52,36 +52,30 @@ noBtn.addEventListener('mouseenter', function() {
         yesBtn.style.fontSize = (currentSize + 5) + 'px';
         yesBtn.style.padding = (18 + noClickCount * 3) + 'px ' + (40 + noClickCount * 5) + 'px';
         
-        // Make No button smaller
+        // Make No button smaller but keep it visible
         const noSize = parseFloat(window.getComputedStyle(noBtn).fontSize);
-        noBtn.style.fontSize = Math.max(10, noSize - 2) + 'px';
-        noBtn.style.padding = Math.max(8, 18 - noClickCount * 2) + 'px ' + Math.max(15, 40 - noClickCount * 3) + 'px';
+        noBtn.style.fontSize = Math.max(12, noSize - 2) + 'px';
+        noBtn.style.padding = Math.max(10, 18 - noClickCount * 2) + 'px ' + Math.max(20, 40 - noClickCount * 3) + 'px';
     }
     
     // Move the button to random position
-    const container = document.querySelector('.container');
-    const containerRect = container.getBoundingClientRect();
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
     
-    const maxX = window.innerWidth - noBtn.offsetWidth - 50;
-    const maxY = window.innerHeight - noBtn.offsetHeight - 50;
+    // Calculate safe boundaries
+    const maxX = window.innerWidth - btnWidth - 20;
+    const maxY = window.innerHeight - btnHeight - 20;
     
-    let randomX, randomY;
+    // Generate random position within safe boundaries
+    const randomX = Math.floor(Math.random() * (maxX - 20)) + 20;
+    const randomY = Math.floor(Math.random() * (maxY - 20)) + 20;
     
-    // Ensure button doesn't overlap with container too much
-    do {
-        randomX = Math.max(50, Math.floor(Math.random() * maxX));
-        randomY = Math.max(50, Math.floor(Math.random() * maxY));
-    } while (
-        randomX > containerRect.left - 100 && 
-        randomX < containerRect.right + 100 &&
-        randomY > containerRect.top - 100 && 
-        randomY < containerRect.bottom + 100
-    );
-    
+    // Apply new position
     noBtn.style.position = 'fixed';
     noBtn.style.left = randomX + 'px';
     noBtn.style.top = randomY + 'px';
     noBtn.style.transition = 'all 0.3s ease';
+    noBtn.style.zIndex = '1000';
 });
 
 // Confetti effect
