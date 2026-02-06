@@ -40,8 +40,9 @@ yesBtn.addEventListener('click', function() {
     createConfetti();
 });
 
-// No button click with growing Yes button
-noBtn.addEventListener('click', function() {
+// Move No button on hover (make it run away) and show messages
+noBtn.addEventListener('mouseenter', function() {
+    // Show message and grow Yes button
     if (noClickCount < noResponses.length) {
         question.textContent = noResponses[noClickCount];
         noClickCount++;
@@ -56,10 +57,8 @@ noBtn.addEventListener('click', function() {
         noBtn.style.fontSize = Math.max(10, noSize - 2) + 'px';
         noBtn.style.padding = Math.max(8, 18 - noClickCount * 2) + 'px ' + Math.max(15, 40 - noClickCount * 3) + 'px';
     }
-});
-
-// Move No button on hover (make it run away)
-noBtn.addEventListener('mouseenter', function() {
+    
+    // Move the button to random position
     const container = document.querySelector('.container');
     const containerRect = container.getBoundingClientRect();
     
